@@ -1,0 +1,85 @@
+body {
+    background-color: #f4f4f4;
+
+}
+body * {font-family: '나눔바른고딕','맑은 고딕',"Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif!important;}
+#wrapper { margin-top: 15px; padding: 0 15px;  }
+#title-area { background-color: #fff; }
+#content-area { background-color: #fff; }
+body ul li { list-style: none; }
+/* Login*/
+.users-loginForm input[name=id] { margin-bottom: 0}
+.users-loginForm .is_save { 
+	text-align: right;
+	margin-bottom: -17px;
+	line-height: 0;
+	margin-top: 3px;
+}
+
+/*Page list*/
+.pages-view_all .state_list { text-align: right; }
+.pages-view_all .button.tiny { 
+	padding-top: 0.425rem;
+	padding-right: 1.05rem;
+	padding-bottom: 0.4875rem;
+	padding-left: 1.05rem;
+	margin-bottom: 4px;
+}
+.pages-view_all .state.button.tiny { 
+	width: 20px; 
+	height: 20px; 
+	padding: 0; 
+	text-indent: -1000em; 
+}
+.pages-view_all .page_list li { 
+	clear: both; 
+	list-style: none; 
+	overflow: hidden;
+}
+.pages-view_all li.level-0 { 
+	margin-top: 10px;
+}
+.pages-view_all li.level-0> a { 
+	font-size: 1.1em; 
+	font-weight: bold; 
+	margin-bottom: 10px;
+}
+.pages-view_all li.level-1 { overflow: visible;}
+.pages-view_all li.level-1> a { 
+	font-weight: bold; 
+	margin-left: -1.5rem;
+}
+.pages-view_all li.level-0> ul { margin-left: 3rem; }
+.pages-view_all li.level-1> ul { margin-left: 0rem; }
+.pages-view_all .page span { 
+	margin-right: 10px; 
+	display: block; 
+	float:left;padding: 1px; 
+	line-height: 1.7em;
+	font-size: 0.8em; 
+}
+.pages-view_all li.page:hover { background-color: #e7e7e7; }
+.pages-view_all .page span.state { margin-top: 3px; }
+.pages-view_all .page span.name { width: 350px; }
+.pages-view_all .page span.modify,
+.pages-view_all .page span.del { 
+
+}
+.pages-view_all .page span.description { 
+	width: 300px; 
+	
+}
+.pages-view_all .page span.insert_date { 
+	width: 100px; 
+}
+.pages-view_all .page span.finish_date { 
+	width: 100px; 
+}
+
+/*Footer*/
+#footer { 
+	margin-top: 15px;
+	font-size: 0.8em;
+	color: #333;
+	text-align: right;
+}
