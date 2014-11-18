@@ -59,7 +59,7 @@ class PagesController extends Controller {
             // indent and display the title of this child
             $category_obj = (object) $category;
             $this->treeHTML .= "<li class='level-".$level."'>";
-            $this->treeHTML .= "<a href="._BASE_URL_."/categories/editForm/".$category_obj->idx."'>";
+            $this->treeHTML .= "<a href='"._BASE_URL_."/categories/editForm/".$category_obj->idx."'>";
             $this->treeHTML .= str_repeat(' ',$level).$category_obj->name."\n";
             $this->treeHTML .= "</a>";
 

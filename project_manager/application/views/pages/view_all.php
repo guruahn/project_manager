@@ -51,7 +51,7 @@
     <div class="small-11 small-centered columns">
         <p class="button-group radius">
             <span><a href="<?php echo _BASE_URL_;?>/pages/writeform/<?php echo $filter_project_id; ?>" class="button radius tiny">Add</a></span>
-            <span><a href="<?php echo _BASE_URL_;?>/manager/project/view_all" class="button secondary radius tiny">Project List</a></span>
+            <span><a href="<?php echo _BASE_URL_;?>/project/view_all" class="button secondary radius tiny">Project List</a></span>
         </p>
     </div>
 </div>
