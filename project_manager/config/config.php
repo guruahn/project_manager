@@ -19,7 +19,7 @@ define('DB_USER', 'tendency');
 define('DB_PASSWORD', 'ekffu9292');
 define('DB_HOST', 'localhost');
 
-define('UPLOAD_PATH',_BASE_URL_."/public/upload");
+define('UPLOAD_PATH',"/public/upload");
 /*
  * SALT KEY
  * http://online-code-generator.com/generate-salt-random-string.php

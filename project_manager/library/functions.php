@@ -115,6 +115,7 @@ function file_upload($file, $file_name, $ext, $path, $change="2"){
         echo "<script>alert('This file can not upload.');history.go(-1);</script>";
         exit;
     }
+
     if(!is_dir($path)){
         if (!mkdir($path, 0777, true)) {
             die('Failed to create folders...');

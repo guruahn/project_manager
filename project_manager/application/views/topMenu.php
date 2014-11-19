@@ -14,7 +14,7 @@
 <nav class="top-bar" data-topbar role="navigation">
     <ul class="title-area">
         <li class="name">
-            <h1><a href="<?php echo _BASE_URL_; ?>/site/main">Project manager</a></h1>
+            <h1><a href="<?php echo _BASE_URL_; ?>/">Project manager</a></h1>
         </li>
 
     </ul>

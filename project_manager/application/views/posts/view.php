@@ -46,26 +46,28 @@ $obj_post = (object) $post;
                 <span><?php echo $obj_post->modify_date; ?></span>
             </li>
         </ul>
-        <?php
-        if(is_login() && $_SESSION['LOGIN_ID'] == $obj_post->user_id){
-        ?>
-        <a href="<?php echo _BASE_URL_;?>/posts/editForm/<?php echo $obj_post->idx?>">
-            <span>
-            edit this post
-            </span>
-        </a>
+        <p class="button-group radius">
+            <?php
+            if(is_login() && $_SESSION['LOGIN_ID'] == $obj_post->user_id){
+            ?>
+            <a href="<?php echo _BASE_URL_;?>/posts/editForm/<?php echo $obj_post->idx?>" class="button radius secondary tiny">
+                <span>
+                edit this post
+                </span>
+            </a>
 
-        <a href="<?php echo _BASE_URL_;?>/posts/delete/<?php echo $obj_post->idx?>">
-            <span>
-            Delete this post
-            </span>
-        </a>
-        <?php }?>
-        <a href="<?php echo _BASE_URL_;?>/posts/view_all/">
-            <span>
-            list post
-            </span>
-        </a>
+            <a href="<?php echo _BASE_URL_;?>/posts/delete/<?php echo $obj_post->idx?>" class="button radius secondary tiny">
+                <span>
+                Delete this post
+                </span>
+            </a>
+            <?php }?>
+            <a href="<?php echo _BASE_URL_;?>/posts/view_all/" class="button radius secondary tiny">
+                <span>
+                list post
+                </span>
+            </a>
+        </p>
     </div><!--//#content-->
 
     <div id="comment" class="small-11 small-centered panel radius columns">
@@ -129,7 +131,7 @@ $obj_post = (object) $post;
 <script src="<?php echo _BASE_URL_;?>/public/js/functions.js"></script>
 <script>
     $(function(){
-        getComments(<?php echo $obj_post->id?>, 1, "comment-list");
+        getComments(<?php echo $obj_post->idx?>, 1, "comment-list");
 
         //commetn add form popup
         $('#comment').on('click', '.comment_add', function(){
@@ -223,7 +225,7 @@ $obj_post = (object) $post;
             dataType: "json"
         }).success(function( data ) {
             if(data.result){
-                getComments(<?php echo $obj_post->id?>, 1, "comment-list");
+                getComments(<?php echo $obj_post->idx?>, 1, "comment-list");
                 $('#'+target).bPopup().close();
             }else{
                 alert(data.message);

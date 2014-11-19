@@ -81,7 +81,6 @@ class PostsController extends Controller {
     function editForm($idx = null) {
         $category = new Category();
         $categories = $category->getList( array('insert_date'=>'asc'), "1000" );
-
         $this->set('categories', $categories);
         $this->set('title','Edit Post');
         $this->set('post',$this->Post->getPost( "*", array("idx"=>$idx) ));
@@ -116,7 +115,7 @@ class PostsController extends Controller {
             $upfile = file_upload($file['file']['tmp_name'], "board_".date("YmdHis").rand(1000,9999), $ext, "..".UPLOAD_PATH."/".date("Y")."/".date("m")."/", 1);
             if($upfile){
                 $result['result'] = 1;
-                $result['link'] = UPLOAD_PATH."/".date("Y")."/".date("m")."/".$upfile;
+                $result['link'] = _BASE_URL_.UPLOAD_PATH."/".date("Y")."/".date("m")."/".$upfile;
                 $result['filename'] = $upfile;
             }
             //thumbnail($path."/".$upfile, $path."/thumb_".$upfile, 120, 100, 1);
