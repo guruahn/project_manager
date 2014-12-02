@@ -24,11 +24,11 @@
             <input type="hidden" name="referer" value="<?php echo (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "" ); ?>" />
             
             <label for="id">ID</label>
-            <input name="id" id="id" type="text" size="30" value="" />
+            <input name="id" id="id" type="text" size="30" value="<?php echo isset($_COOKIE['is_save_id']) ? $_COOKIE['LOGIN_ID'] : ""; ?>" />
             <p class="is_save"><input name="is_save_id" id="is_save_id" type="checkbox" value="Y"/> is save id</p>
             
             <label for="password">password</label>
-            <input name="password" id="password" type="text" size="30" value="" />
+            <input name="password" id="password" type="password" size="30" value="" />
 
             <p><input type="submit" value="submit" class="button radius small"/> </p>
         </form>
