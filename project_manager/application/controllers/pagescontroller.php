@@ -30,6 +30,9 @@ class PagesController extends Controller {
         $project_list = $project->getList( array('insert_date'=>'desc'), "1000" );
         if(is_null($project_idx)) $project_idx = $project_list[0]['idx'];
 
+        $user = new User();
+        $users = $user->getList( array('insert_date'=>'desc'), "1000" );
+
         $category = new Category();
         $where = array( "project_idx"=>$project_idx );
         $categories = $category->getList( array('insert_date'=>'asc'), $limit, $where );
@@ -39,7 +42,7 @@ class PagesController extends Controller {
         $this->set('tree',$this->treeHTML);
         $this->set('project_list',$project_list);
         $this->set('filter_project_id', $project_idx);
-
+        $this->set('users', $users);
     }
 
     function make_tree($parent_idx = 0, $level = 0, $project_idx){
@@ -88,6 +91,7 @@ class PagesController extends Controller {
                         if($page_obj->state != 4){
                             $this->treeHTML .= "<span class='modify'><a href="._BASE_URL_."/pages/editForm/".$page_obj->idx." >수정</a></span>";
                             $this->treeHTML .= "<span class='del'><a href="._BASE_URL_."/pages/del/".$page_obj->idx."/".$project_idx." >삭제</a></span> ";
+                            $this->treeHTML .= "<span class='task'><a data-idx='".$page_obj->idx."' href="._BASE_URL_."/tasks/view_all/".$page_obj->idx." >할일</a></span> ";
                         }else{
                             $this->treeHTML .= "<span class='del_complete'><a href="._BASE_URL_."/pages/delComplete/".$page_obj->idx."/".$project_idx." >완전삭제</a></span> ";
                         }

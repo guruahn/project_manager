@@ -32,6 +32,27 @@ class User extends Model {
         return	$user;
     }
 
+    /*
+     * Get list
+     * @param
+     * @return array
+     */
+    public function getList($orderby = null, $limit, $where = null) {
+        if( !is_null($orderby) && is_array($orderby) ){
+            foreach($orderby as $key => $value){
+                $this->orderBy($key,$value);
+            }
+        }
+        if( !is_null($where) && is_array($where) ){
+            foreach($where as $key => $value){
+                if(!is_null($value)) $this->where($key,$value);
+            }
+        }
+        $posts = $this->get('user', $limit);
+        return $posts;
+    }
+
+
    /*
     * add post
     * @param
