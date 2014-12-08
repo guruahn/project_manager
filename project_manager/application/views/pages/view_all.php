@@ -61,7 +61,7 @@
     <a href="#" class="b-close">X</a>
     <h3>할일 목록</h3>
     <div class="content">
-        <ul id="task-list"></ul>
+        <ul id="task-list"><li class="header"><span class="title">제목</span><span class="receiver">담당</span><span class="do">처리</span></li></ul>
         <div class="row submit_task_wrap">
             <div class="large-6 columns" style="padding:0">
                 <input type="text" name="title" />
@@ -80,7 +80,7 @@
                 </select>
             </div>
             <div class="large-2 columns" style="padding:0">
-                <button class="submit_task button radius tiny" data-project-idx="<?php echo $filter_project_id; ?>">추가</button>
+                <button class="submit_task button radius tiny" data-idx="" data-project-idx="<?php echo $filter_project_id; ?>">추가</button>
             </div>
         </div>
     </div>
@@ -101,10 +101,12 @@ $(function(){
 
     /*할일목록 팝업*/
     $('.task').click(function(){
+        $('#task-list li').not('.header').empty();
         var page_idx = $(this).find('a').attr('data-idx');
         $('#task_to_pop_up').bPopup({
             onOpen: function(){
                 ajax_get_task_list(page_idx);
+                $('.submit_task').attr('data-idx',page_idx);
             }
         });
         return false;
@@ -122,7 +124,7 @@ $(function(){
         return false;
     });
     /*상태변경-완료처리*/
-    $('#task_to_pop_up').on('click', '.ing', function(){
+    $('#task_to_pop_up').on('click', '.ing .do', function(){
         ajax_update_task_status($(this).attr('data-idx'));
     });
 });
@@ -165,7 +167,8 @@ $(function(){
             dataType: "json"
         }).success(function(data){
             if(data.result) {
-                console.log(printr_json(data));
+                //console.log(printr_json(data));
+
                 var list = data.list.map(function(item, index){
                     return '<li class="'+makeStatus(item.status)+'" data-idx="'+item.idx+'"><span class="title">'+item.title+'</span><span class="receiver">'+item.receiver_idx+'</span><span class="do">완료</span></li>';
                 }).join('');
