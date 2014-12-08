@@ -177,7 +177,7 @@ $(function(){
                 //console.log(printr_json(data));
 
                 var list = data.list.map(function(item, index){
-                    return '<li class="'+makeStatus(item.status)+'" data-idx="'+item.idx+'"><span class="title">'+item.title+'</span><span class="receiver">'+item.receiver_idx+'</span><span class="do">완료</span></li>';
+                    return '<li class="'+makeStatus(item.status)+'" data-idx="'+item.idx+'"><span class="title">'+item.title+'</span><span class="receiver">'+item.u_name+'</span><span class="do">완료</span></li>';
                 }).join('');
                 var header = '<li class="header"><span class="title">제목</span><span class="receiver">담당</span><span class="do">처리</span></li>'
                 $('#task-list').html(header+list);

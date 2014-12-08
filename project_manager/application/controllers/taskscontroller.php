@@ -31,8 +31,10 @@ class TasksController extends Controller {
         if(is_null($thispage) || empty($thispage)) $thispage = 1;
         $limit = array( ($thispage-1)*10, 100 );
 
-        $where = array( "page_idx"=>$page_idx );
-        $tasks = $this->Task->getList( array('insert_date'=>'desc'), $limit, $where);
+        $where = array( "t.page_idx"=>$page_idx );
+        $this->Task->join("user u", "u.idx=t.receiver_idx", "LEFT");
+        $column = array("u.idx as u_idx", "u.name as u_name", "t.idx as idx", "t.title as title", "t.status as status");
+        $tasks = $this->Task->getList("task t", array('t.insert_date'=>'desc'), $limit, $where, $column);
         if($tasks) {
             $result['result'] = 1;
             foreach($tasks as $task){

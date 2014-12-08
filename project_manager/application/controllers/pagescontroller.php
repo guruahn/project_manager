@@ -79,7 +79,7 @@ class PagesController extends Controller {
                     $page_obj = (object) $page;
                     $state =  $this->makeState($page_obj->state);
                     $task = New Task();
-                    $count_of_tasks = count( $task->getList(array('insert_date'=>'asc'), array(0, 1000), array('page_idx'=>$page_obj->idx, 'status'=>1), array("idx")) );
+                    $count_of_tasks = count( $task->getList('task',array('insert_date'=>'asc'), array(0, 1000), array('page_idx'=>$page_obj->idx, 'status'=>1), array("idx")) );
                     $insert_date = (empty($page_obj->insert_date))? "" : date('Y-m-d',strtotime($page_obj->insert_date));
                     $finish_date = (empty($page_obj->finish_date))? "" : date('Y-m-d',strtotime($page_obj->finish_date));
                     $del_open = ($page_obj->state == 4)? "<del>" : "";
