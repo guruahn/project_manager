@@ -78,6 +78,8 @@ class PagesController extends Controller {
                 foreach ( $pages as $page ):
                     $page_obj = (object) $page;
                     $state =  $this->makeState($page_obj->state);
+                    $task = New Task();
+                    $count_of_tasks = count( $task->getList(array('insert_date'=>'asc'), array(0, 1000), array('page_idx'=>$page_obj->idx, 'status'=>1), array("idx")) );
                     $insert_date = (empty($page_obj->insert_date))? "" : date('Y-m-d',strtotime($page_obj->insert_date));
                     $finish_date = (empty($page_obj->finish_date))? "" : date('Y-m-d',strtotime($page_obj->finish_date));
                     $del_open = ($page_obj->state == 4)? "<del>" : "";
@@ -91,7 +93,7 @@ class PagesController extends Controller {
                         if($page_obj->state != 4){
                             $this->treeHTML .= "<span class='modify'><a href="._BASE_URL_."/pages/editForm/".$page_obj->idx." >수정</a></span>";
                             $this->treeHTML .= "<span class='del'><a href="._BASE_URL_."/pages/del/".$page_obj->idx."/".$project_idx." >삭제</a></span> ";
-                            $this->treeHTML .= "<span class='task'><a data-idx='".$page_obj->idx."' href="._BASE_URL_."/tasks/view_all/".$page_obj->idx." >할일</a></span> ";
+                            $this->treeHTML .= "<span class='task'><a data-idx='".$page_obj->idx."' href="._BASE_URL_."/tasks/view_all/".$page_obj->idx." >할일(<span class='count_of_task_".$count_of_tasks."'>".$count_of_tasks."</span>)</a></span> ";
                         }else{
                             $this->treeHTML .= "<span class='del_complete'><a href="._BASE_URL_."/pages/delComplete/".$page_obj->idx."/".$project_idx." >완전삭제</a></span> ";
                         }

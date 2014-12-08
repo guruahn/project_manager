@@ -35,6 +35,9 @@ class TasksController extends Controller {
         $tasks = $this->Task->getList( array('insert_date'=>'desc'), $limit, $where);
         if($tasks) {
             $result['result'] = 1;
+            foreach($tasks as $task){
+
+            }
             $result['list'] = $tasks;
         }
         if($is_API){

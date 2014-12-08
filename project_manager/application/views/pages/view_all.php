@@ -125,7 +125,7 @@ $(function(){
     });
     /*상태변경-완료처리*/
     $('#task_to_pop_up').on('click', '.ing .do', function(){
-        ajax_update_task_status($(this).attr('data-idx'));
+        ajax_update_task_status($(this).parent().attr('data-idx'));
     });
 });
     /*상태변경-완료처리*/
@@ -138,6 +138,10 @@ $(function(){
         }).success(function(data){
             if(data.result) {
                 $('li[data-idx='+idx+']').addClass('completed').removeClass('ing');
+                var page_idx = $('.submit_task').attr('data-idx');
+                $countObj = $('.task a[data-idx='+page_idx+'] span');
+                var count = $countObj.text();
+                $countObj.text(Number(count)-1);
             }
         }).fail(function(response){
             console.log(printr_json(response));
@@ -154,6 +158,9 @@ $(function(){
             if(data.result) {
                 $('#task-list .header').after('<li class="ing" data-idx="'+data.idx+'"><span class="title">'+title+'</span><span class="receiver">'+receiver_idx+'</span><span class="do">완료</span></li>');
                 $('input[name=title]').val('');
+                $countObj = $('.task a[data-idx='+page_idx+'] span');
+                var count = $countObj.text();
+                $countObj.text(Number(count)+1);
             }
         }).fail(function(response){
             console.log(printr_json(response));

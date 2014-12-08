@@ -37,7 +37,7 @@ class Task extends Model {
      * @param
      * @return array
      */
-    public function getList($orderby = null, $limit, $where = null) {
+    public function getList($orderby = null, $limit, $where = null, $columns = null) {
         if( !is_null($orderby) && is_array($orderby) ){
             foreach($orderby as $key => $value){
                 $this->orderBy($key,$value);
@@ -48,7 +48,12 @@ class Task extends Model {
                 if(!is_null($value)) $this->where($key,$value);
             }
         }
-        $posts = $this->get('task', $limit);
+        if ( !is_null($columns) && is_array($columns) ){
+            $posts = $this->get('task', $limit, $columns);
+        }else{
+            $posts = $this->get('task', $limit);
+        }
+
         return $posts;
     }
 

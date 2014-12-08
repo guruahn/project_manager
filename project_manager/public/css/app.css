@@ -75,6 +75,16 @@ body ul li { list-style: none; }
 .pages-view_all .page span.finish_date { 
 	width: 100px; 
 }
+.pages-view_all .page span.task .count_of_task_0 { color: #008cba; }
+.pages-view_all .page span.task span {
+    color: #BA0069;
+    clear: both;
+    font-size: 1em;
+    font-weight: bold;
+    display: inline;
+    margin: 0;
+    float: none;
+}
 
     /*task popup*/
     #task_to_pop_up {
