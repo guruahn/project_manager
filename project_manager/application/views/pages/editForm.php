@@ -54,7 +54,7 @@ $obj_page = (object) $page;
                         <label>Choose State</label>
                         <input type="radio" name="state" value="0" id="state0" <?php echo $obj_page->state == 0 ? "checked" : ""; ?> <?php echo $obj_page->state > 0 ? "disabled": "";?>><label for="state0">작업중</label>
                         <input type="radio" name="state" value="1" id="state1" <?php echo $obj_page->state == 1 ? "checked" : ""; ?> <?php echo $obj_page->state > 1 ? "disabled": "";?>><label for="state1">퍼블리싱 완료</label>
-                        <input type="radio" name="state" value="2" id="state2" <?php echo $obj_page->state == 2 ? "checked" : ""; ?> <?php echo $obj_page->state > 2 ? "disabled": "";?>><label for="state2">개발 완료</label>
+                        <input type="radio" name="state" value="2" id="state2" <?php echo $obj_page->state == 2 ? "checked" : ""; ?> <?php echo $obj_page->state > 3 ? "disabled": "";?>><label for="state2">개발 완료</label>
                         <input type="radio" name="state" value="3" id="state3" <?php echo $obj_page->state == 3 ? "checked" : ""; ?>><label for="state3">업데이트 중</label>
                         <input type="radio" name="state" value="4" id="state4" <?php echo $obj_page->state == 4 ? "checked" : ""; ?>><label for="state4">삭제</label>
 

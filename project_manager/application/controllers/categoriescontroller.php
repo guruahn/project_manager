@@ -19,10 +19,10 @@ class CategoriesController extends Controller {
 
     }
 
-    function view_all($project_idx = null, $thispage=1) {
+    function view_all($project_idx = null, $thispage=1, $perpage=100) {
 
         if(is_null($thispage)) $thispage = 1;
-        $limit = array( ($thispage-1)*10, 10 );
+        $limit = array( ($thispage-1)*$perpage, $perpage );
 
         $project = new Project();
         $project_list = $project->getList( array('insert_date'=>'desc'), "1000" );
