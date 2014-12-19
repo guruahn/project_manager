@@ -27,11 +27,9 @@
             
         <div class="state_list">
             <ul class="button-group">
-              <li><a href="#" class="button tiny radius state0">작업중</a></li>
-              <li><a href="#" class="button tiny radius alert state1">퍼블리싱 완료</a></li>
-              <li><a href="#" class="button tiny radius success  state2">개발 완료</a></li>
-              <li><a href="#" class="button tiny radius state3">업데이트 중</a></li>
-              <li><a href="#" class="button tiny radius secondary state4">삭제</a></li>
+              <li><a href="#" class="button tiny radius alert state1">퍼블리싱 진행중</a></li>
+              <li><a href="#" class="button tiny radius success  state2">개발 진행중</a></li>
+              <li><a href="#" class="button tiny radius secondary state4">완료</a></li>
 
             </ul>
         </div>

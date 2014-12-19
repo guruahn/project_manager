@@ -58,13 +58,15 @@ class PagesController extends Controller {
         //printr($categories);
         $this->treeHTML .= "<ul>";
         // display each child
-        foreach ($categories as $category) {
+        foreach ($categories as $category_item) {
             // indent and display the title of this child
-            $category_obj = (object) $category;
+            $category_obj = (object) $category_item;
             $this->treeHTML .= "<li class='level-".$level."'>";
-            $this->treeHTML .= "<a href='"._BASE_URL_."/categories/editForm/".$category_obj->idx."'>";
-            $this->treeHTML .= str_repeat(' ',$level).$category_obj->name."\n";
-            $this->treeHTML .= "</a>";
+
+            if( $level == 0 ) $this->treeHTML .= "<hr />";
+
+            $this->treeHTML .= $this->makeBreadcrumbs($category_obj, $level);
+
 
             //call pages
             $page_where = array(
@@ -80,16 +82,12 @@ class PagesController extends Controller {
                     $state =  $this->makeState($page_obj->state);
                     $task = New Task();
                     $count_of_tasks = count( $task->getList('task',array('insert_date'=>'asc'), array(0, 1000), array('page_idx'=>$page_obj->idx, 'status'=>1), array("idx")) );
-                    $insert_date = (empty($page_obj->insert_date))? "" : date('Y-m-d',strtotime($page_obj->insert_date));
-                    $finish_date = (empty($page_obj->finish_date))? "" : date('Y-m-d',strtotime($page_obj->finish_date));
                     $del_open = ($page_obj->state == 4)? "<del>" : "";
                     $del_close = ($page_obj->state == 4)? "</del>" : "";
                     $this->treeHTML .= "<li class='page'>";
                         $this->treeHTML .= "<span class='radius state ".$state['en']." ".$state['class']."'>".$state['ko']."</span>";
                         $this->treeHTML .= "<span class='name'>".$del_open."<a href='".$page_obj->link."' target='_blank'>".$page_obj->name."</a>".$del_close."</span>";
                         $this->treeHTML .= "<span class='description'>".$page_obj->description."</span>";
-                        $this->treeHTML .= "<span class='insert_date'>".$insert_date."</span>";
-                        $this->treeHTML .= "<span class='finish_date'>".$finish_date."</span>";
                         if($page_obj->state != 4){
                             $this->treeHTML .= "<span class='modify'><a href="._BASE_URL_."/pages/editForm/".$page_obj->idx." >수정</a></span>";
                             $this->treeHTML .= "<span class='del'><a href="._BASE_URL_."/pages/del/".$page_obj->idx."/".$project_idx." >삭제</a></span> ";
@@ -110,6 +108,23 @@ class PagesController extends Controller {
         }
         $this->treeHTML .= "</ul>";
 
+    }
+
+    function makeBreadcrumbs($category_obj, $level){
+        $breadcrumbsHTML = '<li class="current"><a href="'._BASE_URL_.'/categories/editForm/'.$category_obj->idx.'">'.$category_obj->name.'</a></li>';
+        for ($i = $level; $i >= 0; $i--) {
+            $where = array(
+                "idx"=>$category_obj->parent_idx,
+                "project_idx"=>$category_obj->project_idx
+            );
+            $category = new Category();
+            $parent_category = $category->getCategory( "*", $where );
+            if($parent_category){
+                $category_obj = (object) $parent_category;
+                $breadcrumbsHTML = '<li><a href="'._BASE_URL_.'/categories/editForm/'.$category_obj->idx.'">'.$category_obj->name.'</a></li>'.$breadcrumbsHTML;
+            }
+        }
+        return '<nav class="breadcrumbs">'.$breadcrumbsHTML.'</nav>';
     }
 
     function makeState($state){
