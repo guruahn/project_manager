@@ -62,18 +62,13 @@ class PagesController extends Controller {
             // indent and display the title of this child
             $category_obj = (object) $category_item;
             $this->treeHTML .= "<li class='level-".$level."'>";
-
             if( $level == 0 ) $this->treeHTML .= "<hr />";
-
             $this->treeHTML .= $this->makeBreadcrumbs($category_obj, $level);
-
-
             //call pages
             $page_where = array(
                 'category_idx'=>$category_obj->idx,
                 'project_idx'=>$project_idx
             );
-
             $pages = $this->Page->getList( array('insert_date'=> 'asc'), array(0, 1000), $page_where);
             if(!empty($pages)){
                 $this->treeHTML .= "<ul>";
@@ -87,10 +82,11 @@ class PagesController extends Controller {
                     $this->treeHTML .= "<li class='page'>";
                         $this->treeHTML .= "<span class='radius state ".$state['en']." ".$state['class']."'>".$state['ko']."</span>";
                         $this->treeHTML .= "<span class='name'>".$del_open."<a href='".$page_obj->link."' target='_blank'>".$page_obj->name."</a>".$del_close."</span>";
-                        if($page_obj->state != 0){
+                        if($page_obj->state != 1){
                             $this->treeHTML .= "<span class='modify'><a href="._BASE_URL_."/pages/editForm/".$page_obj->idx." >수정</a></span>";
                             $this->treeHTML .= "<span class='del'><a href="._BASE_URL_."/pages/del/".$page_obj->idx."/".$project_idx." >삭제</a></span> ";
                             $this->treeHTML .= "<span class='task'><a data-idx='".$page_obj->idx."' href="._BASE_URL_."/tasks/view_all/".$page_obj->idx." >할일(<span class='count_of_task_".$count_of_tasks."'>".$count_of_tasks."</span>)</a></span> ";
+                            $this->treeHTML .= $this->taskList($page_obj->idx);
                         }else{
                             $this->treeHTML .= "<span class='del_complete'><a href="._BASE_URL_."/pages/delComplete/".$page_obj->idx."/".$project_idx." >완전삭제</a></span> ";
                         }
@@ -107,6 +103,32 @@ class PagesController extends Controller {
         }
         $this->treeHTML .= "</ul>";
 
+    }
+
+    function taskList($page_idx){
+        $task = new Task();
+        $limit = array( 0, 100 );
+        $where = array( "t.page_idx"=>$page_idx );
+        $task->join("user u", "u.idx=t.receiver_idx", "LEFT");
+        $column = array("u.idx as u_idx", "u.name as u_name", "t.idx as idx", "t.title as title", "t.status as status");
+        $task_list = $task->getList("task t", array('t.insert_date'=>'desc'), $limit, $where, $column);
+
+        $task_list_HTML = "";
+        if($task_list){
+            $task_list_HTML = '<ul id="task-list">';
+                $task_list_HTML .= '<li class="header"><span class="title">제목</span></span><span class="receiver">담당자</span><span class="do">완료</span>';
+                foreach($task_list as $task_item){
+                    $task_item_obj = (object) $task_item;
+                    $status = ($task_item_obj->status == 1)? 'completed' : 'ing';
+                    $task_list_HTML .= '<li class="'.$status.'" data-idx="'.$task_item_obj->idx.'">';
+                        $task_list_HTML .= '<span class="title">'.$task_item_obj->title.'</span>';
+                        $task_list_HTML .= '<span class="receiver">'.$task_item_obj->u_name.'</span>';
+                        $task_list_HTML .= '<span class="do">완료</span>';
+                    $task_list_HTML .= '</li>';
+                }
+            $task_list_HTML .= '</ul>';
+        }
+        return $task_list_HTML;
     }
 
     function makeBreadcrumbs($category_obj, $level){

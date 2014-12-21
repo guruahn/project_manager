@@ -102,15 +102,15 @@ body ul li { list-style: none; }
     #task_to_pop_up .content { padding: 10px; }
     #task_to_pop_up .submit_task_wrap { margin-top: 20px; }
     #task_to_pop_up .submit_task { margin-top: 5px; }
-    #task_to_pop_up ul { padding: 0; margin: 0;overflow: hidden;}
-    #task_to_pop_up ul li {  }
-    #task_to_pop_up ul li.header span { background-color: #ddd; text-align: center;  }
-    #task_to_pop_up ul li span { display: block; float: left; width: 33%; margin-top: 10px;}
-    #task_to_pop_up ul li span.title { width: 60%; padding-left: 10px; }
-    #task_to_pop_up ul li span.receiver { width: 20%; text-align: center;}
-    #task_to_pop_up ul li span.do { width: 20%; text-align: center;}
-    #task_to_pop_up ul li.ing span.do { color: #008cba; cursor: pointer; }
-    #task_to_pop_up ul li.completed span { color: #b1b1b1; }
+    #task-list { padding: 0; margin: 0;overflow: hidden; clear: both; }
+    #task-list li {  }
+    #task-list li.header span { background-color: #ddd; text-align: center;  }
+    #task-list li span { display: block; float: left; width: 33%; margin-top: 10px;}
+    #task-list li span.title { width: 60%; padding-left: 10px; }
+    #task-list li span.receiver { width: 20%; text-align: center;}
+    #task-list li span.do { width: 20%; text-align: center;}
+    #task-list li.ing span.do { color: #008cba; cursor: pointer; }
+    #task-list li.completed span { color: #b1b1b1; }
 
 /*Footer*/
 #footer { 
