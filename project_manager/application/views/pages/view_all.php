@@ -27,9 +27,8 @@
             
         <div class="state_list">
             <ul class="button-group">
-              <li><a href="#" class="button tiny radius alert state1">퍼블리싱 진행중</a></li>
-              <li><a href="#" class="button tiny radius success  state2">개발 진행중</a></li>
-              <li><a href="#" class="button tiny radius secondary state4">완료</a></li>
+              <li><a href="#" class="button tiny radius alert state1">진행중</a></li>
+              <li><a href="#" class="button tiny radius success state4">완료</a></li>
 
             </ul>
         </div>
@@ -90,12 +89,6 @@ $(function(){
     var success_page = $('.page .success').length;
     print_progress(total_page, success_page);
 
-
-    /*완전삭제 준비중*/
-    $('.del_complete').click(function(){
-        alert('준비중입니다.');
-        return false;
-    });
 
     /*할일목록 팝업*/
     $('.task').click(function(){

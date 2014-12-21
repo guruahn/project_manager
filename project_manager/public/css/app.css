@@ -53,7 +53,7 @@ body ul li { list-style: none; }
 	font-weight: bold; 
 	margin-left: -1.5rem;
 }
-.pages-view_all li.level-0> ul { margin-left: 0rem; }
+.pages-view_all li.level-0> ul { margin-left: 1rem; }
 .pages-view_all li.level-1> ul { margin-left: 0rem; }
 .pages-view_all .page span { 
 	margin-right: 10px; 

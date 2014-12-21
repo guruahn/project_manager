@@ -79,9 +79,9 @@ class Page extends Model {
     * @param
     * @return array
     */
-    public function del($id)
+    public function del($idx)
     {
-        $this->where ('id', $id);
+        $this->where ('idx', $idx);
         return	$this->delete('page');
     }
 

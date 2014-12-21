@@ -87,8 +87,7 @@ class PagesController extends Controller {
                     $this->treeHTML .= "<li class='page'>";
                         $this->treeHTML .= "<span class='radius state ".$state['en']." ".$state['class']."'>".$state['ko']."</span>";
                         $this->treeHTML .= "<span class='name'>".$del_open."<a href='".$page_obj->link."' target='_blank'>".$page_obj->name."</a>".$del_close."</span>";
-                        $this->treeHTML .= "<span class='description'>".$page_obj->description."</span>";
-                        if($page_obj->state != 4){
+                        if($page_obj->state != 0){
                             $this->treeHTML .= "<span class='modify'><a href="._BASE_URL_."/pages/editForm/".$page_obj->idx." >수정</a></span>";
                             $this->treeHTML .= "<span class='del'><a href="._BASE_URL_."/pages/del/".$page_obj->idx."/".$project_idx." >삭제</a></span> ";
                             $this->treeHTML .= "<span class='task'><a data-idx='".$page_obj->idx."' href="._BASE_URL_."/tasks/view_all/".$page_obj->idx." >할일(<span class='count_of_task_".$count_of_tasks."'>".$count_of_tasks."</span>)</a></span> ";
@@ -135,23 +134,11 @@ class PagesController extends Controller {
         if($state == 0){
             $result["en"] = "ready";
             $result["ko"] = "작업중";
-            $result["class"] = "button tiny state0";
-        }else if($state == 1){
-            $result["en"] = "publish-finish";
-            $result["ko"] = "퍼블리싱 완료";
             $result["class"] = "button tiny alert state0";
-        }else if($state == 2){
+        }else if($state == 1){
             $result["en"] = "develop-finish";
             $result["ko"] = "개발 완료";
             $result["class"] = "button tiny success state0";
-        }else if($state == 3){
-            $result["en"] = "update";
-            $result["ko"] = "업데이트 중";
-            $result["class"] = "button tiny state0";
-        }else if($state == 4){
-            $result["en"] = "delete";
-            $result["ko"] = "삭제";
-            $result["class"] = "button tiny secondary state0";
         }
         return $result;
     }
@@ -188,6 +175,11 @@ class PagesController extends Controller {
         );
 
         $this->Page->updatePost($idx, $data);
+        redirect(_BASE_URL_."/pages/view_all/".$project_idx);
+    }
+
+    function delComplete($idx, $project_idx){
+        $this->Page->del($idx);
         redirect(_BASE_URL_."/pages/view_all/".$project_idx);
     }
 

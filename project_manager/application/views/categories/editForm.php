@@ -17,7 +17,7 @@ $obj_category = (object) $category;
     <h2><?php echo $title; ?></h2>
     <div class="category-form radius small-5 columns">
             <form id="editForm" action="<?php echo _BASE_URL_;?>/categories/edit/<?php echo $obj_category->idx; ?>" method="post" data-abide>
-                <input type="hidden" name="project_idx" value="<?php echo $obj_category->project_idx; ?> />
+                <input type="hidden" name="project_idx" value="<?php echo $obj_category->project_idx; ?>" />
                 <label>Category name <small>required</small>
                     <input name="name" type="text" value="<?php echo $obj_category->name; ?>" />
                 </label>
