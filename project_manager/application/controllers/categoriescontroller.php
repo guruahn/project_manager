@@ -72,7 +72,6 @@ class CategoriesController extends Controller {
 
     function editForm($idx = null) {
         $this->set('title','Edit Category');
-
         $project = new Project();
         $project_list = $project->getList( array('insert_date'=>'asc'), "1000" );
         $thispage = 1;
@@ -93,7 +92,7 @@ class CategoriesController extends Controller {
             "parent_idx" => trim($_POST['parent_idx'])
         );
         $this->Category->updateCategory($idx, $data);
-        redirect(_BASE_URL_."/categories/view_all");
+        redirect(_BASE_URL_."/categories/view_all/".$_POST['project_idx']);
     }
 
     function add() {
@@ -108,7 +107,7 @@ class CategoriesController extends Controller {
             "parent_idx" => $parent_idx
         );
         $this->set('category',$this->Category->add($data));
-        redirect(_BASE_URL_."/categories/view_all");
+        redirect(_BASE_URL_."/categories/view_all".$_POST['project_idx']);
     }
 
     function del($id = null) {

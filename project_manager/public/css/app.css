@@ -36,6 +36,8 @@ body ul li { list-style: none; }
 	list-style: none; 
 	overflow: hidden;
 }
+
+.pages-view_all .page_list .level-0:first-child hr { border: 0; }
 .pages-view_all .breadcrumbs { margin-top: 15px; }
 .pages-view_all .breadcrumbs li { clear: none;}
 .pages-view_all li.level-0 { 

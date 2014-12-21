@@ -45,6 +45,7 @@
         <div class="add-form-box radius small-5 columns">
             <h3>Add Category</h3>
             <form id="addForm" action="<?php echo _BASE_URL_;?>/categories/add" method="post" data-abide>
+                <input type="hidden" name="project_idx" value="<?php echo $filter_project_id; ?> />
                 <label>Category name <small>required</small>
                     <input name="name" type="text" value="" required />
                 </label>
