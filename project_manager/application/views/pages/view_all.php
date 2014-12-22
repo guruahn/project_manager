@@ -89,9 +89,20 @@ $(function(){
     var success_page = $('.page .success').length;
     print_progress(total_page, success_page);
 
+    /*할일 아코디언*/
+    $('.task').click(function(){
+        var $hiddentasks = $(this).parent().parent().find('.task-list');
+        var $task = $(this);
+        $hiddentasks.slideToggle(300, function(){
+            $task.find('.bullet_on').toggle();
+            $task.find('.bullet_off').toggle();
+        });
+
+        return false;
+    });
 
     /*할일목록 팝업*/
-    $('.task').click(function(){
+    /*$('.task').click(function(){
         $('#task-list li').not('.header').empty();
         var page_idx = $(this).find('a').attr('data-idx');
         $('#task_to_pop_up').bPopup({
@@ -101,7 +112,7 @@ $(function(){
             }
         });
         return false;
-    });
+    });*/
     /*할일 추가*/
     $('#task_to_pop_up').on('click', '.submit_task', function(){
         var title = $('input[name=title]').val();

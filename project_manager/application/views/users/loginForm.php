@@ -25,7 +25,7 @@
             
             <label for="id">ID</label>
             <input name="id" id="id" type="text" size="30" value="<?php echo isset($_COOKIE['is_save_id']) ? $_COOKIE['LOGIN_ID'] : ""; ?>" />
-            <p class="is_save"><input name="is_save_id" id="is_save_id" type="checkbox" value="Y"/> is save id</p>
+            <p class="is_save"><input name="is_save_id" id="is_save_id" type="checkbox" value="<?php echo isset($_COOKIE['is_save_id']) ? "Y" : ""; ?>"/> is save id</p>
             
             <label for="password">password</label>
             <input name="password" id="password" type="password" size="30" value="" />

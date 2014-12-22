@@ -79,14 +79,18 @@ class PagesController extends Controller {
                     $count_of_tasks = count( $task->getList('task',array('insert_date'=>'asc'), array(0, 1000), array('page_idx'=>$page_obj->idx, 'status'=>1), array("idx")) );
                     $del_open = ($page_obj->state == 4)? "<del>" : "";
                     $del_close = ($page_obj->state == 4)? "</del>" : "";
-                    $this->treeHTML .= "<li class='page'>";
+                    $this->treeHTML .= "<li class='page'><div>";
                         $this->treeHTML .= "<span class='radius state ".$state['en']." ".$state['class']."'>".$state['ko']."</span>";
                         $this->treeHTML .= "<span class='name'>".$del_open."<a href='".$page_obj->link."' target='_blank'>".$page_obj->name."</a>".$del_close."</span>";
                         if($page_obj->state != 1){
                             $this->treeHTML .= "<span class='modify'><a href="._BASE_URL_."/pages/editForm/".$page_obj->idx." >수정</a></span>";
                             $this->treeHTML .= "<span class='del'><a href="._BASE_URL_."/pages/del/".$page_obj->idx."/".$project_idx." >삭제</a></span> ";
-                            $this->treeHTML .= "<span class='task'><a data-idx='".$page_obj->idx."' href="._BASE_URL_."/tasks/view_all/".$page_obj->idx." >할일(<span class='count_of_task_".$count_of_tasks."'>".$count_of_tasks."</span>)</a></span> ";
-                            $this->treeHTML .= $this->taskList($page_obj->idx);
+                            $this->treeHTML .= "<span class='task'><a data-idx='".$page_obj->idx."' href='#' >할일(<span class='count_of_task_".$count_of_tasks."'>".$count_of_tasks."</span>)</a>";
+                            $taskListHTML = $this->taskList($page_obj->idx);
+                            if($taskListHTML){
+                                $this->treeHTML .= "<span class='bullet_on'> △</span><span class='bullet_off'> ▽</span>";
+                            }
+                            $this->treeHTML .= "</span></div>".$taskListHTML;
                         }else{
                             $this->treeHTML .= "<span class='del_complete'><a href="._BASE_URL_."/pages/delComplete/".$page_obj->idx."/".$project_idx." >완전삭제</a></span> ";
                         }
@@ -115,16 +119,18 @@ class PagesController extends Controller {
 
         $task_list_HTML = "";
         if($task_list){
-            $task_list_HTML = '<ul id="task-list">';
-                $task_list_HTML .= '<li class="header"><span class="title">제목</span></span><span class="receiver">담당자</span><span class="do">완료</span>';
+            $task_list_HTML = '<ul class="task-list round">';
+                //$task_list_HTML .= '<li class="header"><span class="title">제목</span></span><span class="receiver">담당자</span><span class="do">완료</span>';
+                $evenOrOdd = "odd";
                 foreach($task_list as $task_item){
                     $task_item_obj = (object) $task_item;
-                    $status = ($task_item_obj->status == 1)? 'completed' : 'ing';
-                    $task_list_HTML .= '<li class="'.$status.'" data-idx="'.$task_item_obj->idx.'">';
+                    $status = ($task_item_obj->status == 2)? 'completed' : 'ing';
+                    $task_list_HTML .= '<li class="'.$status.' '.$evenOrOdd.'" data-idx="'.$task_item_obj->idx.'">';
                         $task_list_HTML .= '<span class="title">'.$task_item_obj->title.'</span>';
-                        $task_list_HTML .= '<span class="receiver">'.$task_item_obj->u_name.'</span>';
+                        $task_list_HTML .= '<span class="receiver">'.$task_item_obj->u_name.' &nbsp;</span>';
                         $task_list_HTML .= '<span class="do">완료</span>';
                     $task_list_HTML .= '</li>';
+                    $evenOrOdd = ($evenOrOdd == 'odd')? "even" : "odd";
                 }
             $task_list_HTML .= '</ul>';
         }

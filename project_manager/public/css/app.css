@@ -9,7 +9,7 @@ body, h2, h3, h4 {font-family: '나눔바른고딕','맑은 고딕',"Helvetica N
 body ul li { list-style: none; }
 /* Login*/
 .users-loginForm input[name=id] { margin-bottom: 0}
-.users-loginForm .is_save { 
+.users-loginForm .is_save {
 	text-align: right;
 	margin-bottom: -17px;
 	line-height: 0;
@@ -18,67 +18,58 @@ body ul li { list-style: none; }
 
 /*Page list*/
 .pages-view_all .state_list { text-align: right; }
-.pages-view_all .button.tiny { 
+.pages-view_all .button.tiny {
 	padding-top: 0.425rem;
 	padding-right: 1.05rem;
 	padding-bottom: 0.4875rem;
 	padding-left: 1.05rem;
 	margin-bottom: 4px;
 }
-.pages-view_all .state.button.tiny { 
-	width: 20px; 
-	height: 20px; 
-	padding: 0; 
-	text-indent: -1000em; 
+.pages-view_all .state.button.tiny {
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	text-indent: -1000em;
 }
-.pages-view_all .page_list li { 
-	clear: both; 
-	list-style: none; 
+.pages-view_all .page_list li {
+	clear: both;
+	list-style: none;
 	overflow: hidden;
 }
 
 .pages-view_all .page_list .level-0:first-child hr { border: 0; }
 .pages-view_all .breadcrumbs { margin-top: 15px; }
 .pages-view_all .breadcrumbs li { clear: none;}
-.pages-view_all li.level-0 { 
+.pages-view_all li.level-0 {
 	margin-top: 10px;
 }
-.pages-view_all li.level-0> a { 
-	font-size: 1.1em; 
-	font-weight: bold; 
+.pages-view_all li.level-0> a {
+	font-size: 1.1em;
+	font-weight: bold;
 	margin-bottom: 10px;
 }
+.pages-view_all li.level-0>.breadcrumbs { background-color: #D7D7D7;}
 .pages-view_all li.level-1 { overflow: visible;}
-.pages-view_all li.level-1> a { 
-	font-weight: bold; 
+.pages-view_all li.level-1> a {
+	font-weight: bold;
 	margin-left: -1.5rem;
 }
-.pages-view_all li.level-0> ul { margin-left: 1rem; }
-.pages-view_all li.level-1> ul { margin-left: 0rem; }
-.pages-view_all .page span { 
-	margin-right: 10px; 
-	display: block; 
-	float:left;padding: 1px; 
-	line-height: 1.7em;
-	font-size: 0.8em; 
+.pages-view_all li.level-0> ul {
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
 }
-.pages-view_all li.page:hover { background-color: #e7e7e7; }
+.pages-view_all li.level-1> ul { margin-left: 0rem; }
+.pages-view_all .page>div {background-color: #F7F7F7;overflow: hidden;padding: 5px 10px 3px;margin-bottom: 3px; }
+.pages-view_all .page span {
+	margin-right: 10px;
+	display: block;
+	float:left;padding: 1px;
+	line-height: 1.7em;
+	font-size: 0.8em;
+}
+.pages-view_all li.page:hover {  }
 .pages-view_all .page span.state { margin-top: 3px; }
 .pages-view_all .page span.name { width: 300px; }
-.pages-view_all .page span.modify,
-.pages-view_all .page span.del { 
-
-}
-.pages-view_all .page span.description { 
-	width: 300px; 
-	
-}
-.pages-view_all .page span.insert_date { 
-	width: 100px; 
-}
-.pages-view_all .page span.finish_date { 
-	width: 100px; 
-}
 .pages-view_all .page span.task .count_of_task_0 { color: #008cba; }
 .pages-view_all .page span.task span {
     color: #BA0069;
@@ -89,7 +80,8 @@ body ul li { list-style: none; }
     margin: 0;
     float: none;
 }
-
+.page span.task span.bullet_off {display: none;}
+.page span.task span.bullet_off, .page span.task span.bullet_on { cursor: pointer;}
     /*task popup*/
     #task_to_pop_up {
         width: 500px;
@@ -98,22 +90,31 @@ body ul li { list-style: none; }
         padding: 20px;
         position: relative;
     }
-    #task_to_pop_up .b-close { position: absolute; top: 20px; right: 20px; font-size: 2em; }
     #task_to_pop_up .content { padding: 10px; }
     #task_to_pop_up .submit_task_wrap { margin-top: 20px; }
     #task_to_pop_up .submit_task { margin-top: 5px; }
-    #task-list { padding: 0; margin: 0;overflow: hidden; clear: both; }
-    #task-list li {  }
-    #task-list li.header span { background-color: #ddd; text-align: center;  }
-    #task-list li span { display: block; float: left; width: 33%; margin-top: 10px;}
-    #task-list li span.title { width: 60%; padding-left: 10px; }
-    #task-list li span.receiver { width: 20%; text-align: center;}
-    #task-list li span.do { width: 20%; text-align: center;}
-    #task-list li.ing span.do { color: #008cba; cursor: pointer; }
-    #task-list li.completed span { color: #b1b1b1; }
+
+    .task-list {
+        width: 700px;
+        padding: 0 1em 0 0;
+        margin: 0;
+        overflow: hidden;
+        clear: both;
+        padding-left: 1.9rem;
+        margin-bottom: 1.5rem;
+    }
+.page .task-list li span { display: block; float: left; width: 33%; margin: 0; padding: 0; }
+.page .task-list li.header span { text-align: center; border-bottom: 1px solid #ddd; }
+.page .task-list li.even span {  }
+.page .task-list li span.title { width: 55%; padding-left: 10px; text-align: left;}
+.page .task-list li span.receiver { width: 20%; text-align: center;}
+.page .task-list li span.do { width: 20%; text-align: center;}
+.page .task-list li.ing span.do { color: #008cba; cursor: pointer; }
+.page .task-list li.completed span { color: #b1b1b1; }
+
 
 /*Footer*/
-#footer { 
+#footer {
 	margin-top: 15px;
 	font-size: 0.8em;
 	color: #333;
