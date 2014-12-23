@@ -15,7 +15,7 @@
 <body>
 
   <div id="wrapper">
-      <div id="title-area" class="small-11 small-centered panel radius columns">
+      <div id="title-area" class="small-11 small-centered columns">
         <h2><?php echo $title?></h2>
       </div>
       <div id="content-area" class="small-11 small-centered panel radius columns ">

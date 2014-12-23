@@ -13,7 +13,7 @@
 ?>
 
 <div id="wrapper">
-    <div id="title-area" class="small-11 small-centered panel radius columns">
+    <div id="title-area" class="small-11 small-centered columns">
         <h2><?php echo $title;?></h2>
     </div>
     <div id="content-area" class="small-11 small-centered panel radius columns">
@@ -78,3 +78,14 @@
         <div style="clear:both"></div>
     </div><!--//#content-area-->
 </div><!--//#wrapper-->
+<script type="text/javascript">
+    $(function(){
+        $('.delete').click(function(){
+            var url = $(this).attr('href');
+            if(confirm("정말로 삭제하시겠습니까?")){
+                window.location.href = url;
+            }
+            return false;
+        });
+    });
+</script>

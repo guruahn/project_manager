@@ -54,10 +54,10 @@ class CategoriesController extends Controller {
             // indent and display the title of this child
             $category_obj = (object) $category;
             $this->treeHTML .= "<li class='level-".$level."'>";
-            $this->treeHTML .= "<a href="._BASE_URL_."/categories/editForm/".$category_obj->idx."'>";
+            $this->treeHTML .= "<a href='"._BASE_URL_."/categories/editForm/".$category_obj->idx."'>";
             $this->treeHTML .= str_repeat(' ',$level).$category_obj->name."\n";
-            $this->treeHTML .= "</a>";
-            $this->treeHTML .= "<a href="._BASE_URL_."/categories/del/".$category_obj->idx." >delete</a>";
+            $this->treeHTML .= "<i class='fa fa-pencil-square-o'></i> </a>";
+            $this->treeHTML .= "<a href="._BASE_URL_."/categories/del/".$category_obj->idx." class='delete' > <i class='fa fa-times'></i></a>";
 
             // call this function again to display this
             // child's children
@@ -107,7 +107,7 @@ class CategoriesController extends Controller {
             "parent_idx" => $parent_idx
         );
         $this->set('category',$this->Category->add($data));
-        redirect(_BASE_URL_."/categories/view_all".$_POST['project_idx']);
+        redirect(_BASE_URL_."/categories/view_all/".$_POST['project_idx']);
     }
 
     function del($id = null) {

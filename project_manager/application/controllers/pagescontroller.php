@@ -81,18 +81,12 @@ class PagesController extends Controller {
                     $this->treeHTML .= "<li class='page'><div>";
                         $this->treeHTML .= "<span class='radius state ".$state['en']." ".$state['class']."'>".$state['ko']."</span>";
                         $this->treeHTML .= "<span class='name'>".$del_open."<a href='".$page_obj->link."' target='_blank'>".$page_obj->name."</a>".$del_close."</span>";
-                        if($page_obj->state != 1){
                             $this->treeHTML .= "<span class='modify'><a href="._BASE_URL_."/pages/editForm/".$page_obj->idx." >수정</a></span>";
                             $this->treeHTML .= "<span class='del'><a href="._BASE_URL_."/pages/del/".$page_obj->idx."/".$project_idx." >삭제</a></span> ";
                             $this->treeHTML .= "<span class='task'><a data-idx='".$page_obj->idx."' href='#' >할일(<span class='count_of_task_".$count_of_tasks."'>".$count_of_tasks."</span>)</a>";
                             $taskListHTML = $this->taskList($page_obj->idx, $project_idx);
-                            if($taskListHTML){//not print bullet when task is empty
-                                $this->treeHTML .= " <span class='bullet_on'><i class='fa fa-chevron-circle-up '></i></span><span class='bullet_off'><i class='fa fa-chevron-circle-down '></i></span>";
-                            }
+                            $this->treeHTML .= " <span class='bullet_on'><i class='fa fa-chevron-circle-up '></i></span><span class='bullet_off'><i class='fa fa-chevron-circle-down '></i></span>";
                             $this->treeHTML .= "</span></div>".$taskListHTML;
-                        }else{
-                            $this->treeHTML .= "<span class='del_complete'><a href="._BASE_URL_."/pages/delComplete/".$page_obj->idx."/".$project_idx." >완전삭제</a></span> ";
-                        }
                     $this->treeHTML .= "</li>";
                 endforeach;
                 $this->treeHTML .= "</ul>";
@@ -117,7 +111,7 @@ class PagesController extends Controller {
         $task_list = $task->getList("task t", array('t.insert_date'=>'desc'), $limit, $where, $column);
 
         $task_list_HTML = "";
-        $task_list_HTML = '<ul class="task-list round" data-page-idx="'.$page_idx.'">';
+        $task_list_HTML .= '<ul class="task-list round" data-page-idx="'.$page_idx.'">';
         if($task_list){
             $evenOrOdd = "odd";
             foreach($task_list as $task_item){

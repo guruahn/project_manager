@@ -38,14 +38,13 @@
             <span class="meter" style="width: 0%"></span><span id="meter_text">0</span>%
         </div>
         <div class="task_all_toggle_wrap" style="clear:both">
-            <span class="task_all_toggle off">할일 모두 닫기 <i class="fa fa-angle-double-up"></i></span>
-            <span class="task_all_toggle on">할일 모두 열기 <i class="fa fa-angle-double-down"></i></span>
+            <button class="button tiny radius task_all_toggle off">할일 모두 닫기 <i class="fa fa-angle-double-up"></i></button>
+            <button class="button tiny radius task_all_toggle on">할일 모두 열기 <i class="fa fa-angle-double-down"></i></button>
         </div>
         <div class="page_list ">
             <?php
             echo $tree;
             ?>
-
         </div>
     </div>
 

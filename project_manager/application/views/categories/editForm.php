@@ -13,9 +13,11 @@
 $obj_category = (object) $category;
 ?>
 
-<div id="wrapper" class="row small-11 small-centered columns">
-    <h2><?php echo $title; ?></h2>
-    <div class="category-form radius small-5 columns">
+<div id="wrapper">
+    <div id="title-area" class="small-11 small-centered columns">
+        <h2><?php echo $title; ?></h2>
+    </div>
+    <div id="content-area" class="small-11 small-centered panel radius columns">
             <form id="editForm" action="<?php echo _BASE_URL_;?>/categories/edit/<?php echo $obj_category->idx; ?>" method="post" data-abide>
                 <input type="hidden" name="project_idx" value="<?php echo $obj_category->project_idx; ?>" />
                 <label>Category name <small>required</small>
@@ -62,6 +64,7 @@ $obj_category = (object) $category;
 
                 <p class="button-group radius">
                     <span><button class="radius tiny">Edit</button></span>
+                    <span><a href="<?php echo _BASE_URL_;?>/categories/view_all/<?php echo $obj_category->project_idx; ?>" class="button radius tiny">Category List</a></span>
                 </p>
             </form>
 
