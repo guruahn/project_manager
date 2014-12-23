@@ -4,7 +4,7 @@ body {
 }
 body, h2, h3, h4 {font-family: '나눔바른고딕','맑은 고딕',"Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif!important;}
 #wrapper { margin-top: 15px; padding: 0 15px;  }
-#title-area { background-color: #fff; }
+#title-area {  }
 #content-area { background-color: #fff; }
 body ul li { list-style: none; }
 /* Login*/
@@ -31,6 +31,8 @@ body ul li { list-style: none; }
 	padding: 0;
 	text-indent: -1000em;
 }
+.pages-view_all .task_all_toggle_wrap { float: right; font-size: 0.8em; cursor: pointer}
+.pages-view_all .task_all_toggle_wrap .task_all_toggle.on {display: none; }
 .pages-view_all .page_list li {
 	clear: both;
 	list-style: none;
@@ -104,6 +106,7 @@ body ul li { list-style: none; }
         padding-left: 1.9rem;
         margin-bottom: 1.5rem;
     }
+.page .task-list li { border-bottom: 1px dotted #ddd; }
 .page .task-list li span { display: block; float: left; width: 33%; margin: 0; padding: 0; }
 .page .task-list li.header span { text-align: center; border-bottom: 1px solid #ddd; }
 .page .task-list li.even span {  }

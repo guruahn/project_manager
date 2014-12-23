@@ -13,7 +13,7 @@
 ?>
 
 <div id="wrapper" >
-    <div id="title-area" class="small-11 small-centered panel radius columns">
+    <div id="title-area" class="small-11 small-centered  radius columns">
         <?php
         foreach($project_list as $project):
             $obj_project = (object) $project;
@@ -36,6 +36,10 @@
     <div id="content-area" class="small-11 small-centered panel radius columns">
         <div class="progress small-4 success round" style="float: right;">
             <span class="meter" style="width: 0%"></span><span id="meter_text">0</span>%
+        </div>
+        <div class="task_all_toggle_wrap" style="clear:both">
+            <span class="task_all_toggle off">할일 모두 닫기 <i class="fa fa-angle-double-up"></i></span>
+            <span class="task_all_toggle on">할일 모두 열기 <i class="fa fa-angle-double-down"></i></span>
         </div>
         <div class="page_list ">
             <?php
@@ -131,6 +135,20 @@ $(function(){
         var page_idx = $(this).parent().parent().parent().attr('data-page-idx');
         if($(this).hasClass('fa-check-square-o')) status = 1;//check checked!
         ajax_update_task_status($(this).parent().parent().attr('data-idx'), status, page_idx);
+    });
+
+    /*toggle all task list*/
+    $('.task_all_toggle').click(function(){
+        if($(this).hasClass('off')){
+            $('.task-list').slideUp();
+            $('.bullet_on').hide();
+            $('.bullet_off').show();
+        }else{
+            $('.task-list').slideDown();
+            $('.bullet_on').show();
+            $('.bullet_off').hide();
+        }
+        $('.task_all_toggle').toggle();
     });
 });
     /*change task status*/
