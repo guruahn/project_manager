@@ -87,15 +87,16 @@ body ul li { list-style: none; }
         width: 500px;
         display: none;
         background-color: #fff;
-        padding: 20px;
+        padding: 40px 30px 30px;
         position: relative;
     }
-    #task_to_pop_up .content { padding: 10px; }
+    #task_to_pop_up .content {  }
     #task_to_pop_up .submit_task_wrap { margin-top: 20px; }
+    #task_to_pop_up .submit_task_wrap div { padding: 0; }
     #task_to_pop_up .submit_task { margin-top: 5px; }
-
+    #task_to_pop_up .b-close { font-size: 1.4em; padding: 0.2em; display: block; position: absolute; top: 20px; right: 20px; }
+    #task_to_pop_up .submit_task_button_wrap { text-align: right;}
     .task-list {
-        width: 700px;
         padding: 0 1em 0 0;
         margin: 0;
         overflow: hidden;
@@ -107,11 +108,12 @@ body ul li { list-style: none; }
 .page .task-list li.header span { text-align: center; border-bottom: 1px solid #ddd; }
 .page .task-list li.even span {  }
 .page .task-list li span.title { width: 55%; padding-left: 10px; text-align: left;}
-.page .task-list li span.receiver { width: 20%; text-align: center;}
-.page .task-list li span.do { width: 20%; text-align: center;}
+.page .task-list li span.receiver { width: 70px; text-align: left;}
+.page .task-list li span.do { width: 3%; text-align: left;padding-top: 3px;}
+.page .task-list li span.do.off { display: none; }
 .page .task-list li.ing span.do { color: #008cba; cursor: pointer; }
 .page .task-list li.completed span { color: #b1b1b1; }
-
+.page .task-list li .add { cursor: pointer; }
 
 /*Footer*/
 #footer {

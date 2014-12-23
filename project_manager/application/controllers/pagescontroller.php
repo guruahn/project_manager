@@ -62,7 +62,6 @@ class PagesController extends Controller {
             // indent and display the title of this child
             $category_obj = (object) $category_item;
             $this->treeHTML .= "<li class='level-".$level."'>";
-            if( $level == 0 ) $this->treeHTML .= "<hr />";
             $this->treeHTML .= $this->makeBreadcrumbs($category_obj, $level);
             //call pages
             $page_where = array(
@@ -86,9 +85,9 @@ class PagesController extends Controller {
                             $this->treeHTML .= "<span class='modify'><a href="._BASE_URL_."/pages/editForm/".$page_obj->idx." >수정</a></span>";
                             $this->treeHTML .= "<span class='del'><a href="._BASE_URL_."/pages/del/".$page_obj->idx."/".$project_idx." >삭제</a></span> ";
                             $this->treeHTML .= "<span class='task'><a data-idx='".$page_obj->idx."' href='#' >할일(<span class='count_of_task_".$count_of_tasks."'>".$count_of_tasks."</span>)</a>";
-                            $taskListHTML = $this->taskList($page_obj->idx);
-                            if($taskListHTML){
-                                $this->treeHTML .= "<span class='bullet_on'> △</span><span class='bullet_off'> ▽</span>";
+                            $taskListHTML = $this->taskList($page_obj->idx, $project_idx);
+                            if($taskListHTML){//not print bullet when task is empty
+                                $this->treeHTML .= " <span class='bullet_on'><i class='fa fa-chevron-circle-up '></i></span><span class='bullet_off'><i class='fa fa-chevron-circle-down '></i></span>";
                             }
                             $this->treeHTML .= "</span></div>".$taskListHTML;
                         }else{
@@ -109,7 +108,7 @@ class PagesController extends Controller {
 
     }
 
-    function taskList($page_idx){
+    function taskList($page_idx, $project_idx){
         $task = new Task();
         $limit = array( 0, 100 );
         $where = array( "t.page_idx"=>$page_idx );
@@ -118,22 +117,27 @@ class PagesController extends Controller {
         $task_list = $task->getList("task t", array('t.insert_date'=>'desc'), $limit, $where, $column);
 
         $task_list_HTML = "";
+        $task_list_HTML = '<ul class="task-list round" data-page-idx="'.$page_idx.'">';
         if($task_list){
-            $task_list_HTML = '<ul class="task-list round">';
-                //$task_list_HTML .= '<li class="header"><span class="title">제목</span></span><span class="receiver">담당자</span><span class="do">완료</span>';
-                $evenOrOdd = "odd";
-                foreach($task_list as $task_item){
-                    $task_item_obj = (object) $task_item;
-                    $status = ($task_item_obj->status == 2)? 'completed' : 'ing';
-                    $task_list_HTML .= '<li class="'.$status.' '.$evenOrOdd.'" data-idx="'.$task_item_obj->idx.'">';
-                        $task_list_HTML .= '<span class="title">'.$task_item_obj->title.'</span>';
-                        $task_list_HTML .= '<span class="receiver">'.$task_item_obj->u_name.' &nbsp;</span>';
-                        $task_list_HTML .= '<span class="do">완료</span>';
-                    $task_list_HTML .= '</li>';
-                    $evenOrOdd = ($evenOrOdd == 'odd')? "even" : "odd";
-                }
-            $task_list_HTML .= '</ul>';
+            $evenOrOdd = "odd";
+            foreach($task_list as $task_item){
+                $task_item_obj = (object) $task_item;
+                $status = ($task_item_obj->status == 2)? 'completed' : 'ing';
+                $task_list_HTML .= '<li class="'.$status.' '.$evenOrOdd.'" data-idx="'.$task_item_obj->idx.'">';
+                    if($task_item_obj->status == 2) {
+                        $task_list_HTML .= '<span class="do on"><i class="fa fa-check-square-o"></i></span><span class="do off"><i class="fa fa-square-o"></i></span>';
+                    }else{
+                        $task_list_HTML .= '<span class="do off"><i class="fa fa-check-square-o"></i></span><span class="do on"><i class="fa fa-square-o"></i></span>';
+                    }
+                    $task_list_HTML .= '<span class="receiver">'.$task_item_obj->u_name.' &nbsp;</span>';
+                    $task_list_HTML .= '<span class="title">'.$task_item_obj->title.'</span>';
+
+                $task_list_HTML .= '</li>';
+                $evenOrOdd = ($evenOrOdd == 'odd')? "even" : "odd";
+            }
         }
+        $task_list_HTML .= '<li><i class="fa fa-plus add" data-page-idx="'.$page_idx.'" data-project-idx="'.$project_idx.'"></i></li>';
+        $task_list_HTML .= '</ul>';
         return $task_list_HTML;
     }
 

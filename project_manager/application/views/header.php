@@ -26,6 +26,7 @@ if( !is_login() && $controller != "users") redirect(_BASE_URL_.'/users/loginForm
         <meta name="author" content="gong-jam" />
         <title><?php echo $title; ?></title>
         <link rel="stylesheet" href="<?php echo _BASE_URL_; ?>/public/css/foundation/foundation.min.css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="<?php echo _BASE_URL_; ?>/public/css/app.css">
         <script src="<?php echo _BASE_URL_; ?>/public/js/foundation/vendor/modernizr.js"></script>
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>

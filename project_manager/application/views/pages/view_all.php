@@ -29,7 +29,6 @@
             <ul class="button-group">
               <li><a href="#" class="button tiny radius alert state1">진행중</a></li>
               <li><a href="#" class="button tiny radius success state4">완료</a></li>
-
             </ul>
         </div>
         
@@ -54,15 +53,12 @@
     </div>
 </div>
 <!--popup-->
-<div id="task_to_pop_up">
-    <a href="#" class="b-close">X</a>
-    <h3>할일 목록</h3>
+<div id="task_to_pop_up" class="panel radius">
+    <a href="#" class="b-close"><i class="fa fa-times"></i></a>
+    <h3>할일 추가</h3>
     <div class="content">
-        <ul id="task-list"><li class="header"><span class="title">제목</span><span class="receiver">담당</span><span class="do">처리</span></li></ul>
         <div class="row submit_task_wrap">
-            <div class="large-6 columns" style="padding:0">
-                <input type="text" name="title" />
-            </div>
+
             <div class="large-4 columns" >
                 <select name="user" id="user">
                     <option value="0">담당자</option>
@@ -76,9 +72,13 @@
                     ?>
                 </select>
             </div>
-            <div class="large-2 columns" style="padding:0">
-                <button class="submit_task button radius tiny" data-idx="" data-project-idx="<?php echo $filter_project_id; ?>">추가</button>
+            <div class="large-8 columns" style="padding:0">
+                <input type="text" name="title" />
             </div>
+
+        </div>
+        <div class="row submit_task_button_wrap">
+            <button class="submit_task button radius tiny" data-page-idx="" data-project-idx="<?php echo $filter_project_id; ?>">추가</button>
         </div>
     </div>
 </div>
@@ -101,18 +101,17 @@ $(function(){
         return false;
     });
 
-    /*할일목록 팝업*/
-    /*$('.task').click(function(){
-        $('#task-list li').not('.header').empty();
-        var page_idx = $(this).find('a').attr('data-idx');
+    /*할일추가 팝업*/
+    $('.task-list .add').click(function(){
+        var page_idx = $(this).attr('data-page-idx');
         $('#task_to_pop_up').bPopup({
             onOpen: function(){
-                ajax_get_task_list(page_idx);
-                $('.submit_task').attr('data-idx',page_idx);
+                $('.submit_task').attr('data-page-idx',page_idx);
             }
         });
         return false;
-    });*/
+    });
+
     /*할일 추가*/
     $('#task_to_pop_up').on('click', '.submit_task', function(){
         var title = $('input[name=title]').val();
@@ -121,36 +120,45 @@ $(function(){
             alert('내용을 입력해주세요.');
             return false;
         }else{
-            ajax_insert_task(title, $(this).attr('data-idx'), $(this).attr('data-project-idx'), receiver_idx);
+            ajax_insert_task(title, $(this).attr('data-page-idx'), $(this).attr('data-project-idx'), receiver_idx, $('select[name=user] option:selected').text());
         }
         return false;
     });
-    /*상태변경-완료처리*/
-    $('#task_to_pop_up').on('click', '.ing .do', function(){
-        ajax_update_task_status($(this).parent().attr('data-idx'));
+
+    /*change task status*/
+    $('.task-list').on('click', '.do i', function(){
+        var status = 2;//status value to update
+        var page_idx = $(this).parent().parent().parent().attr('data-page-idx');
+        if($(this).hasClass('fa-check-square-o')) status = 1;//check checked!
+        ajax_update_task_status($(this).parent().parent().attr('data-idx'), status, page_idx);
     });
 });
-    /*상태변경-완료처리*/
-    function ajax_update_task_status(idx){
+    /*change task status*/
+    function ajax_update_task_status(idx, status, page_idx){
         $.ajax({
             type: "POST",
             url: "<?php echo _BASE_URL_;?>/api/tasks/updateStatus/"+idx,
-            data: {status: 2},
+            data: {status: status},
             dataType: "json"
         }).success(function(data){
             if(data.result) {
-                $('li[data-idx='+idx+']').addClass('completed').removeClass('ing');
-                var page_idx = $('.submit_task').attr('data-idx');
+                $('li[data-idx='+idx+'] .do').toggle();
                 $countObj = $('.task a[data-idx='+page_idx+'] span');
                 var count = $countObj.text();
-                $countObj.text(Number(count)-1);
+                if(status == 2) {
+                    $('li[data-idx='+idx+']').addClass('completed').removeClass('ing');
+                    $countObj.text(Number(count)-1);
+                }else{
+                    $('li[data-idx='+idx+']').addClass('ing').removeClass('completed');
+                    $countObj.text(Number(count)+1);
+                }
             }
         }).fail(function(response){
             console.log(printr_json(response));
         });
     }
     /*task 추가*/
-    function ajax_insert_task(title, page_idx, project_idx, receiver_idx){
+    function ajax_insert_task(title, page_idx, project_idx, receiver_idx, receiver_name){
         $.ajax({
             type: "POST",
             url: "<?php echo _BASE_URL_;?>/api/tasks/addTask/",
@@ -158,11 +166,12 @@ $(function(){
             dataType: "json"
         }).success(function(data){
             if(data.result) {
-                $('#task-list .header').after('<li class="ing" data-idx="'+data.idx+'"><span class="title">'+title+'</span><span class="receiver">'+receiver_idx+'</span><span class="do">완료</span></li>');
+                $('.task-list').prepend('<li class="ing" data-idx="'+data.idx+'"><span class="do off"><i class="fa fa-check-square-o"></i></span><span class="do on"><i class="fa fa-square-o"></i></span><span class="receiver">'+receiver_name+'</span><span class="title">'+title+'</span>');
                 $('input[name=title]').val('');
                 $countObj = $('.task a[data-idx='+page_idx+'] span');
                 var count = $countObj.text();
                 $countObj.text(Number(count)+1);
+                $('#task_to_pop_up').bPopup().close();
             }
         }).fail(function(response){
             console.log(printr_json(response));
